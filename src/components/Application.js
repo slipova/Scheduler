@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment";
-import Empty from "./Appointment/Empty";
 
 const days = [
   {
@@ -68,7 +67,7 @@ const appointments = [
 
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
-  const appointment = appointments.map(appointment => <Appointment key={appointment.id} {...appointment}></Appointment>)
+  const schedule = appointments.map(appointment => <Appointment key={appointment.id} {...appointment}></Appointment>)
 
   return (
     <main className="layout">
@@ -96,8 +95,8 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {/* {appointments.map((appointment) => <Appointment key={appointment.id} {...appointment} />)} */}
-        {appointment}
-        <Empty time="5pm" />
+        {schedule}
+        <Appointment time="5pm" key="last" />
       </section>
     </main>
   );
