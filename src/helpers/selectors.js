@@ -9,8 +9,8 @@ export function getAppointmentsForDay(state, day) {
     if (item["name"] === day && item.appointments) {
       let arrayOfAppointmentIds = item.appointments;
 
-      let array = arrayOfAppointmentIds.map((element) => state.appointments[element])
-      return array;
+      let arrayOfAppointmentsForDay = arrayOfAppointmentIds.map((element) => state.appointments[element])
+      return arrayOfAppointmentsForDay;
 
     }
   }
