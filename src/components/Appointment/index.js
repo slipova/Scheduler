@@ -8,16 +8,16 @@ import Empty from "./Empty";
 
 
 function Appointment(props) {
-  console.log(props)
+
   return (
     <article className="appointment">
       <Header time={props.time} />
 
       {/* {props.time && <article className="appointment">Appointment at {props.time}</article>}
       {!props.time && <article className="appointment">No appointments</article>} */}
-      {/* {props.interview ? <Show /> : <Empty />} */}
-      {props.interview && <Show interviewer={props.interview.interviewer} student={props.interview.student} />}
-      {!props.interview && <Empty />}
+      {props.interview ? <Show interviewer={props.interview.interviewer} student={props.interview.student} /> : <Empty />}
+      {/* {props.interview && <Show interviewer={props.interview.interviewer} student={props.interview.student} />}
+      {!props.interview && <Empty />} */}
     </article>
   );
 };

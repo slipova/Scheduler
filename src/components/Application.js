@@ -94,7 +94,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {/* {appointments.map((appointment) => <Appointment key={appointment.id} {...appointment} />)} */}
+        {appointments.map((appointment) => <Appointment key={appointment.id} {...appointment} />)}
         {schedule}
         <Appointment time="5pm" key="last" />
       </section>
