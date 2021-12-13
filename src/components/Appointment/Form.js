@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
+
 function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+
+
 
   const reset = () => {
     setStudent("");
@@ -31,8 +34,8 @@ function Form(props) {
             value={student}
             // onChange={props.onChange}
             onChange={(event) => setStudent(event.target.value)}
-
           />
+
         </form>
         <InterviewerList
           interviewers={props.interviewers}
