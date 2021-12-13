@@ -20,10 +20,9 @@ function Appointment(props) {
     <article className="appointment">
       <Header time={props.time} />
 
-      {/* {props.interview ? <Show interviewer={props.interview.interviewer} student={props.interview.student} /> : <Empty />} */}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && <Show interviewer={props.interview.interviewer} student={props.interview.student} />}
-      {mode === CREATE && <Form interviewers={[]} onCancel={() => back()} />}
+      {mode === CREATE && <Form interviewers={props.interviewers} onCancel={() => back()} />}
 
     </article>
   );
