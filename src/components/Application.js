@@ -15,8 +15,8 @@ export default function Application(props) {
   });
 
 
-  ////////added
-  function bookInterview(id, interview) {
+  ////////create interview
+  const bookInterview = (id, interview) => {
     console.log("state.appointment[id]:", state.appointments[id])
     const appointment = {
       ...state.appointments[id],
@@ -35,6 +35,18 @@ export default function Application(props) {
   }
   /////////////
 
+  //delete interview
+  const cancelInterview = (appointmentId) => {
+    const newAppointments = state.appointments;
+    newAppointments[appointmentId].interview = null;
+    console.log("appointmentId: ", appointmentId)
+    return (
+      axios.delete(`/api/appointments/${appointmentId}`)
+        .then(() => { setState({ ...state, appointments: newAppointments }) })
+    )
+  }
+  ////////////////
+
   const setDay = day => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
@@ -48,8 +60,9 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
-        //added:
         bookInterview={bookInterview}
+        //added:
+        cancelInterview={cancelInterview}
       />
     );
   });
@@ -80,7 +93,6 @@ export default function Application(props) {
           <DayList
             days={state.days}
             value={state.day}
-
             onChange={setDay}
 
           />
@@ -92,7 +104,6 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {/* {appointments.map((appointment) => <Appointment key={appointment.id} {...appointment} />)} */}
         {schedule}
         <Appointment time="5pm" key="last" />
       </section>

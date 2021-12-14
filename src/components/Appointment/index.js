@@ -11,17 +11,18 @@ import Status from "./Status";
 
 
 function Appointment(props) {
-  const { id, bookInterview } = props;
+  const { id, bookInterview, cancelInterview } = props;
+  console.log(id)
 
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
   const SAVING = "SAVING";
+  const DELETING = "DELETING";
 
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
 
-  /////////////added
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -32,7 +33,18 @@ function Appointment(props) {
     bookInterview(id, interview)
       .then(() => { transition(SHOW) })
   }
+
+
   //////////////////
+  function deleteInterview(id) {
+    transition(DELETING);
+
+    cancelInterview(id)
+      .then(() => { transition(EMPTY) })
+  }
+
+
+  //////////////////////////
 
 
   return (
@@ -40,9 +52,10 @@ function Appointment(props) {
       <Header time={props.time} />
 
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && <Show interviewer={props.interview.interviewer} student={props.interview.student} />}
+      {mode === SHOW && <Show interviewer={props.interview.interviewer} student={props.interview.student} onDelete={deleteInterview} id={props.id} />}
       {mode === CREATE && <Form interviewers={props.interviewers} onCancel={back} onSave={save} />}
       {mode === SAVING && <Status message="Saving" />}
+      {mode === DELETING && <Status message="Deleting" />}
 
     </article>
   );
