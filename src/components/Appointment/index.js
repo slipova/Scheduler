@@ -38,7 +38,10 @@ function Appointment(props) {
     transition(SAVING)
     bookInterview(id, interview)
       .then(() => { transition(SHOW) })
-      .catch((error) => { transition(ERROR_SAVE, true) })
+      .catch((error) => {
+        console.log("error", error)
+        transition(ERROR_SAVE, true)
+      })
   }
 
 

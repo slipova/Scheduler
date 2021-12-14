@@ -21,8 +21,36 @@ export default function useApplicationData() {
 
     return (
       axios.put(`/api/appointments/${id}`, { interview })
-        .then(() => { setState({ ...state, appointments }) })
+        .then(() => {
+          const updatedWeek = freeAppointmentSpots();
+          setState({ ...state, appointments, days: updatedWeek })
+
+        })
     )
+
+  }
+
+  function freeAppointmentSpots() {
+    const currentDay = state.day;
+    let arrayOfAppointments = [];
+    let updatedWeek = [];
+
+
+    for (let weekday of state.days) {
+      if (weekday.name === currentDay) {
+        arrayOfAppointments = weekday.appointments;
+        let freeSpots = arrayOfAppointments.filter(spot => state.appointments[spot].interview);
+
+        let availableSpots = freeSpots.length;
+        let updatedDay = { ...weekday, spots: availableSpots }
+        updatedWeek.push(updatedDay)
+      } else {
+
+        updatedWeek.push(weekday);
+      }
+    };
+
+    return updatedWeek;
 
   }
 
