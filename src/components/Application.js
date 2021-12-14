@@ -8,6 +8,18 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../h
 
 
 export default function Application(props) {
+
+  // const {state, setDay, bookInterview, cancelInterview}
+
+  // const interviewers
+  const interviewers = getInterviewersForDay(state, state.day)
+
+  //const appointments
+
+  //return
+
+
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -17,7 +29,6 @@ export default function Application(props) {
 
   ////////create interview
   const bookInterview = (id, interview) => {
-    console.log("state.appointment[id]:", state.appointments[id])
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -39,7 +50,6 @@ export default function Application(props) {
   const cancelInterview = (appointmentId) => {
     const newAppointments = state.appointments;
     newAppointments[appointmentId].interview = null;
-    console.log("appointmentId: ", appointmentId)
     return (
       axios.delete(`/api/appointments/${appointmentId}`)
         .then(() => { setState({ ...state, appointments: newAppointments }) })
@@ -51,15 +61,15 @@ export default function Application(props) {
   const setDay = day => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
+
+
   const schedule = dailyAppointments.map(appointment => {
-    const interview = getInterview(state, appointment.interview)
-    const interviewers = getInterviewersForDay(state, state.day)
     return (
       <Appointment
         key={appointment.id}
         id={appointment.id}
         time={appointment.time}
-        interview={interview}
+        interview={getInterview(state, appointment.interview)}
         interviewers={interviewers}
         bookInterview={bookInterview}
         //added:
