@@ -47,6 +47,7 @@ export default function Application(props) {
   }
   ////////////////
 
+
   const setDay = day => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
@@ -63,6 +64,7 @@ export default function Application(props) {
         bookInterview={bookInterview}
         //added:
         cancelInterview={cancelInterview}
+
       />
     );
   });

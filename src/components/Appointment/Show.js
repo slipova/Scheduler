@@ -24,7 +24,8 @@ function Show(props) {
             src="images/trash.png"
             alt="Delete"
             //added
-            onClick={() => props.onDelete(props.id)}
+            // onClick={() => props.onDelete(props.id)}
+            onClick={() => props.onConfirm("CONFIRM")}
 
           />
         </section>
