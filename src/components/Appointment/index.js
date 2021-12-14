@@ -54,13 +54,10 @@ function Appointment(props) {
       })
   }
 
-  function handleDeleteError() {
-    transition(SHOW, true)
+  function handleError(mode) {
+    transition(mode, true)
   }
 
-  function handleSaveError() {
-    transition(EMPTY, true)
-  }
 
 
   //////////////////////////
@@ -84,8 +81,8 @@ function Appointment(props) {
       {mode === EDIT && <Form interviewer={props.interview.interviewer.id} interviewers={props.interviewers} student={props.interview.student} onCancel={back} onSave={save} />}
       {mode === SAVING && <Status message="Saving" />}
       {mode === DELETING && <Status message="Deleting" />}
-      {mode === ERROR_DELETE && <Error onClose={handleDeleteError} message="delete" />}
-      {mode === ERROR_SAVE && <Error onClose={handleSaveError} message="save" />}
+      {mode === ERROR_DELETE && <Error onClose={() => handleError(SHOW)} message="delete" />}
+      {mode === ERROR_SAVE && <Error onClose={() => handleError(EMPTY)} message="save" />}
 
     </article>
   );
