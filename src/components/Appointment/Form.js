@@ -32,8 +32,8 @@ function Form(props) {
 
 
             value={student}
-            // onChange={props.onChange}
             onChange={(event) => setStudent(event.target.value)}
+            data-testid="student-name-input"
           />
 
         </form>
