@@ -22,24 +22,22 @@ export default function useApplicationData() {
     return (
       axios.put(`/api/appointments/${id}`, { interview })
         .then(() => {
-          const updatedWeek = freeAppointmentSpots();
-          setState(prev => ({ ...prev, appointments, days: updatedWeek }))
+          const updatedWeek = freeAppointmentSpots(appointments);
+          setState({ ...state, appointments, days: updatedWeek })
 
         })
     )
 
   }
 
-  function freeAppointmentSpots() {
+  function freeAppointmentSpots(appointments) {
     const currentDay = state.day;
-    let arrayOfAppointments = [];
     let updatedWeek = [];
-
 
     for (let weekday of state.days) {
       if (weekday.name === currentDay) {
-        arrayOfAppointments = weekday.appointments;
-        let freeSpots = arrayOfAppointments.filter(spot => !state.appointments[spot].interview);
+
+        let freeSpots = weekday.appointments.filter(spot => !appointments[spot].interview);
 
         let availableSpots = freeSpots.length;
         let updatedDay = { ...weekday, spots: availableSpots }
@@ -55,13 +53,22 @@ export default function useApplicationData() {
   }
 
   const cancelInterview = (appointmentId) => {
-    const newAppointments = state.appointments;
-    newAppointments[appointmentId].interview = null;
+    const appointment = {
+      ...state.appointments[appointmentId],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [appointmentId]: appointment
+    };
+
+
+
     return (
       axios.delete(`/api/appointments/${appointmentId}`)
         .then(() => {
-          const updatedWeek = freeAppointmentSpots();
-          setState({ ...state, appointments: newAppointments, days: updatedWeek })
+          const updatedWeek = freeAppointmentSpots(appointments);
+          setState({ ...state, appointments, days: updatedWeek })
 
         })
     )

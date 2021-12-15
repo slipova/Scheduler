@@ -26,6 +26,7 @@ function Form(props) {
 
   const cancel = () => {
     reset();
+    setError("");
     return <Form />;
   }
 
