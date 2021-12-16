@@ -23,14 +23,13 @@ export default function useApplicationData() {
       axios.put(`/api/appointments/${id}`, { interview })
         .then(() => {
           const updatedWeek = freeAppointmentSpots(appointments);
-          setState({ ...state, appointments, days: updatedWeek })
+          setState({ ...state, appointments, days: updatedWeek });
 
         })
-    )
+    );
+  };
 
-  }
-
-  function freeAppointmentSpots(appointments) {
+  const freeAppointmentSpots = (appointments) => {
     const currentDay = state.day;
     let updatedWeek = [];
 
@@ -43,12 +42,11 @@ export default function useApplicationData() {
         let updatedDay = { ...weekday, spots: availableSpots }
         updatedWeek.push(updatedDay)
       } else {
-
         updatedWeek.push(weekday);
       }
     };
     return updatedWeek;
-  }
+  };
 
   const cancelInterview = (appointmentId) => {
     const appointment = {
@@ -60,8 +58,6 @@ export default function useApplicationData() {
       [appointmentId]: appointment
     };
 
-
-
     return (
       axios.delete(`/api/appointments/${appointmentId}`)
         .then(() => {
@@ -69,8 +65,8 @@ export default function useApplicationData() {
           setState({ ...state, appointments, days: updatedWeek })
 
         })
-    )
-  }
+    );
+  };
 
   const setDay = day => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
@@ -88,7 +84,7 @@ export default function useApplicationData() {
 
   }, []);
 
-  return { state, setDay, bookInterview, cancelInterview, dailyAppointments }
+  return { state, setDay, bookInterview, cancelInterview, dailyAppointments };
 
-}
+};
 
