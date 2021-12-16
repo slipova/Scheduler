@@ -8,27 +8,27 @@ function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
 
-  function validate() {
+  const validate = () => {
     if (student === "") {
       setError("Student name cannot be blank");
       return;
     }
     setError("");
     props.onSave(student, interviewer);
-  }
+  };
 
 
   const reset = () => {
     setStudent("");
     setInterviewer("");
     props.onCancel();
-  }
+  };
 
   const cancel = () => {
     reset();
     setError("");
     return <Form />;
-  }
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
