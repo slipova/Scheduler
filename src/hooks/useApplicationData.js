@@ -47,9 +47,7 @@ export default function useApplicationData() {
         updatedWeek.push(weekday);
       }
     };
-
     return updatedWeek;
-
   }
 
   const cancelInterview = (appointmentId) => {
