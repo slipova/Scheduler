@@ -1,5 +1,10 @@
 # Interview Scheduler
 
+Interview Scheduler is a React app designed to make weekday interview appointment scheduling easy. Simply navigate to the day of your choice, select a time slot, insert interviewee's name and choose an interviewer.
+
+
+
+
 ## Setup
 
 Install dependencies with `npm install`.
